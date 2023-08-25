@@ -58,5 +58,17 @@ namespace ASPCoreWebAPICRUD.Controllers
             return Ok(std);
         }
 
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<Student>> DeleteStudent(int id)
+        {
+            var std = await context.Students.FindAsync(id);
+            if (std ==null)
+            {
+                return NotFound();
+            }
+            context.Students.Remove(std);
+            await context.SaveChangesAsync();
+            return Ok();
+        }
     }
 }
